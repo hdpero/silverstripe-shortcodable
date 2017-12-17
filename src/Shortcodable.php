@@ -2,7 +2,9 @@
 
 namespace Silverstripe;
 
-use SilverStripe\Core\Object;
+use SilverStripe\Core\Extensible;
+use SilverStripe\Core\Injector\Injectable;
+use SilverStripe\Core\Config\Configurable;
 use SilverStripe\View\Parsers\ShortcodeParser;
 use SilverStripe\Core\Config\Config;
 
@@ -12,8 +14,12 @@ use SilverStripe\Core\Config\Config;
  *
  * @author shea@livesource.co.nz
  **/
-class Shortcodable extends Object
+class Shortcodable
 {
+    use Extensible;
+    use Injectable;
+    use Configurable;
+
     private static $shortcodable_classes = array();
 
     public static function register_classes($classes)
@@ -38,7 +44,7 @@ class Shortcodable extends Object
 
     public static function get_shortcodable_classes()
     {
-        return Config::inst()->get('Shortcodable', 'shortcodable_classes');
+        return Config::inst()->get('Silverstripe\Shortcodable', 'shortcodable_classes');
     }
 
     public static function get_shortcodable_classes_fordropdown()
